@@ -14,7 +14,7 @@ All components in this layer must comply to this directory layout:
    + - dql: data query language sql files (operations)
    + - dml: data modification language files (base data)
 
-- <dbfamily>-default: symlink to the a specific default db version for the family
+- <dbfamily>-default: symlink to a specific default db version for the family
 
 - <dbfamily>-common: files and templates common to all versions of a given dbfamily
    + - db-setup: performs initial database setup to allow for minimal tests (users, roles)
