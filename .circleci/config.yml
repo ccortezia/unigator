@@ -1,0 +1,36 @@
+defaults: &defaults
+  working_directory: ~
+  docker:
+    - image: circleci/python:3.6
+
+version: 2
+jobs:
+  test_database:
+    <<: *defaults
+    steps:
+      - checkout
+
+      - run:
+          name: Install Docker Compose
+          command: |
+            curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
+
+      - setup_remote_docker
+
+      - run:
+          name: Prepare Test Runner Image
+          command: docker build . -f .circleci/Dockerfile -t unigator-testrunner
+
+      - run:
+          name: Launch Test Runner
+          command: |
+              docker-compose -f stack/pg up -d
+              docker run --network unigator unigator-testrunner
+
+workflows:
+  version: 2
+  all:
+    jobs:
+      - test_database
