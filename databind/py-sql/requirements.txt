@@ -1,0 +1,2 @@
+# pip install git+git://github.com/honza/anosql.git@d0ce39303853ae6ff4b99c31ae1f01c6d4e3197c
+psycopg2-binary==2.7.5
