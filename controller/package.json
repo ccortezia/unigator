@@ -1,0 +1,29 @@
+{
+  "name": "unigator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.16.3",
+    "express-graphql": "^0.6.12",
+    "graphql": "^0.13.2",
+    "graphql-tools": "^2.24.0",
+    "pg": "^7.4.1",
+    "yesql": "^3.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ccortezia/unigator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ccortezia/unigator/issues"
+  },
+  "homepage": "https://github.com/ccortezia/unigator#readme"
+}

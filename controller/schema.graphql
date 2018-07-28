@@ -1,0 +1,173 @@
+
+type Contact {
+    id: ID!
+    name: String!
+    groups: [String!]
+}
+
+type ContactGroup {
+    name: String!
+    members: [Contact!]
+}
+
+type Location {
+    id: ID!
+    addr: String!
+    groups: [String!]
+    assignments: [ContactLocationAssignment!]
+}
+
+type LocationGroup {
+    name: String!
+    members: [Location!]
+}
+
+type LocationAssignment {
+    type: String!
+    description: String
+}
+
+type ContactLocationAssignment {
+    contact: Contact!
+    assignedAs: LocationAssignment!
+}
+
+type Vehicle {
+    id: ID!
+    plate: String!
+    groups: [String!]
+}
+
+type VehicleGroup {
+    name: String!
+    members: [Vehicle!]
+}
+
+type Checkpoint {
+    id: ID!
+    name: String!
+    groups: [String!]
+}
+
+type CheckpointGroup {
+    name: String!
+    members: [Checkpoint!]
+}
+
+type AuthAction {
+    name: String!
+    level: Int!
+}
+
+type AccessAuth {
+    auth_action: AuthAction!
+    rule_id: ID!
+}
+
+type ProcessAuthEvent {
+    proc_id: ID!
+    authorizer: Contact!
+    auth_action: AuthAction!
+    datetime: DateTime!
+}
+
+type AccessProcess {
+    id: ID!
+    contact: Contact
+    origLocation: Location
+    destLocation: Location
+    checkpoint: Checkpoint
+    vehicle: Vehicle
+    startedAt: DateTime!
+    finishedAt: DateTime
+    auth_events: [ProcessAuthEvent!]
+}
+
+type YearRangeMatcher {
+    from: Year!
+    to: Year!
+}
+
+type MonthRangeMatcher {
+    from: Month!
+    to: Month!
+}
+
+type MonthDayRangeMatcher {
+    from: MonthDay!
+    to: MonthDay!
+}
+
+type WeekDayRangeMatcher {
+    from: WeekDay!
+    to: WeekDay!
+}
+
+type HourRangeMatcher {
+    from: Hour!
+    to: Hour!
+}
+
+type MinuteRangeMatcher {
+    from: Minute!
+    to: Minute!
+}
+
+type AccessRuleCondition {
+    contact: Contact
+    origin: Location
+    destination: Location
+    checkpoint: Checkpoint
+    vehicle: Vehicle
+    contactGroup: ContactGroup
+    locationGroup: LocationGroup
+    vehicleGroup: VehicleGroup
+    checkpointGroup: CheckpointGroup
+    locationAssignment: LocationAssignment
+    years: YearRangeMatcher!
+    months: MonthRangeMatcher!
+    mdays: MonthDayRangeMatcher!
+    wdays: WeekDayRangeMatcher!
+    hours: HourRangeMatcher!
+    minutes: MinuteRangeMatcher!
+}
+
+type AccessRule {
+    id: ID!
+    condition: AccessRuleCondition!
+    effect: AuthAction!
+}
+
+input AccessAuthInput {
+    contactId: ID!
+    vehicleId: ID!
+    checkpointId: ID!
+    origLocationId: ID!
+    destLocationId: ID!
+    datetime: DateTime!
+}
+
+type Query {
+    contact(id: ID!): Contact,
+    contacts: [Contact!]
+    location(id: ID!): Location,
+    locations: [Location!],
+    vehicle(id: ID!): Vehicle
+    vehicles: [Vehicle!]
+    checkpoint(id: ID!): Checkpoint
+    checkpoints: [Checkpoint!]
+    accessRule(id: ID!): AccessRule
+    accessRules: [AccessRule!]
+    accessProc(id: ID!): AccessProcess
+    accessProcsHistory: [AccessProcess!]
+    accessProcsRunning: [AccessProcess!]
+    accessAuth(info: AccessAuthInput!): AccessAuth,
+}
+
+scalar DateTime
+scalar Year
+scalar Month
+scalar MonthDay
+scalar WeekDay
+scalar Hour
+scalar Minute
