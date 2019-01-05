@@ -33,8 +33,8 @@ docker-compose -p unigator -f stack/pg up -d
 
 export PGPORT=5432
 export PGHOST=localhost
-PGUSER=postgres database/postgresql-common/db-setup.sh
-PGUSER=unigator database/postgresql-common/db-reset.sh default
+PGUSER=postgres database/postgresql-common/db-setup
+PGUSER=unigator database/postgresql-common/db-reset default
 PGPASSWORD=123123 psql -h localhost -U unigator -c 'select * from ung.ac_contacts;'
 ```
 
