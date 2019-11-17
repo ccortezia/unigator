@@ -1,6 +1,7 @@
 <template>
     <header>
       <router-link class="logo" to="/">HOME</router-link>
+      <router-link class="logo" to="/contacts">Contacts</router-link>
       <router-link class="logout-link" to="/login">
         <el-button type="info" round>LOGOUT</el-button>
       </router-link>
