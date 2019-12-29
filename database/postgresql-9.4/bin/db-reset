@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e
+set -u
+
+# Example usage:
+# PGHOST=localhost PGPORT=5432 PGUSER=unigator ./db-reset
+
+readonly HERE="$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)"
+readonly DDL_DIR=$HERE/../ddl
+readonly DML_DIR=$HERE/../dml
+
+psql -f <(cat $DDL_DIR/*.sql $DML_DIR/initdb.sql) >/dev/null

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+set -u
+
+# Example usage:
+# PGHOST=localhost PGPORT=5432 PGUSER=postgres ./db-setup
+
+dropdb --if-exists unigator
+dropuser --if-exists unigator
+createuser --no-superuser --no-createdb --createrole unigator
+createdb -O unigator unigator
+psql -q -d postgres -c "ALTER USER unigator WITH PASSWORD '123123';"
+psql -q -d postgres -c 'ALTER ROLE unigator SET search_path TO "$user", custom, ung, public;'
