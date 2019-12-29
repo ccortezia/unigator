@@ -2,7 +2,7 @@ version: "3.5"
 services:
 
   db:
-    image: postgres:9.4
+    image: postgres:9.6
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
